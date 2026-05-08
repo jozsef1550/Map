@@ -1,0 +1,11 @@
+{
+  "name": "fantasy-map-engine-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bash run.sh",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && pip install -r requirements.txt",
+    "build": "cd frontend && npm run build"
+  }
+}
