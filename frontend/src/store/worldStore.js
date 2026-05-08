@@ -72,6 +72,7 @@ export const useWorldStore = create((set, get) => ({
       set({ loadingMessage: 'Loading world data…' })
       const { data: world } = await axios.get(`${API}/world/${worldId}`)
       set({ worldId, world, generating: false, loadingMessage: '' })
+      get().connectWs(worldId)
     } catch (e) {
       set({ error: e.message, generating: false, loadingMessage: '' })
     }
