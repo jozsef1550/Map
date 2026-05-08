@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f0f1a; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+/* Sidebar panel */
+.panel {
+  @apply bg-gray-900 border border-gray-700 rounded-lg p-3;
+}
+
+/* Slider label */
+.slider-row {
+  @apply flex items-center justify-between gap-2 mb-2;
+}
+
+input[type=range] {
+  @apply accent-amber-500 w-full;
+}
+
+/* Button */
+.btn {
+  @apply px-3 py-1.5 rounded text-sm font-medium cursor-pointer transition-colors;
+}
+.btn-primary {
+  @apply btn bg-amber-600 hover:bg-amber-500 text-white;
+}
+.btn-secondary {
+  @apply btn bg-gray-700 hover:bg-gray-600 text-gray-200;
+}
+.btn-danger {
+  @apply btn bg-red-800 hover:bg-red-700 text-white;
+}
