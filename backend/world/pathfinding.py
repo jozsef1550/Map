@@ -46,7 +46,7 @@ def build_roads(
         nearest_port = min(coast_coords, key=lambda p: abs(p[0]-cy) + abs(p[1]-cx))
         path = astar(cost_map, (cy, cx), nearest_port)
         if path:
-            roads.append(_path_to_edge(cx, cy, nearest_port[1], nearest_port[0], path))
+            roads.append(_path_to_edge(cx, cy, int(nearest_port[1]), int(nearest_port[0]), path))
 
         # 2) Roads to nearest 2 resource nodes
         res_land = [r for r in resources if heightmap[r.y, r.x] >= SEA_LEVEL]
@@ -54,7 +54,7 @@ def build_roads(
         for res in sorted_res[:2]:
             path = astar(cost_map, (cy, cx), (res.y, res.x))
             if path:
-                roads.append(_path_to_edge(cx, cy, res.x, res.y, path))
+                roads.append(_path_to_edge(cx, cy, int(res.x), int(res.y), path))
 
     return roads
 

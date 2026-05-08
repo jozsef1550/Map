@@ -1,0 +1,13 @@
+run = "bash run.sh"
+entrypoint = "run.sh"
+
+[nix]
+channel = "stable-23_11"
+
+[[ports]]
+localPort = 8000
+externalPort = 80
+
+[[ports]]
+localPort = 5173
+externalPort = 3000

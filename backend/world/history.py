@@ -78,7 +78,7 @@ def advance_era(
     # ---- 2. City growth ----
     for city in cities:
         if not city.is_ruin:
-            growth = rng.integers(100, 1000)
+            growth = int(rng.integers(100, 1000))
             # bonus near resources
             near_res = sum(1 for r in resources
                            if abs(r.x - city.x) + abs(r.y - city.y) < 15)
@@ -116,7 +116,7 @@ def advance_era(
                 x=int(nc), y=int(nr),
                 name=new_name,
                 kingdom_id=kid,
-                population=rng.integers(200, 5000),
+                population=int(rng.integers(200, 5000)),
             ))
             events.append(HistoryEvent(
                 era=era,

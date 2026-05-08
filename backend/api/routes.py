@@ -92,7 +92,7 @@ async def generate(req: GenerateRequest):
         erosion_iterations=req.erosion_iterations,
     )
     # Run in thread pool to avoid blocking event loop
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     state = await loop.run_in_executor(None, generate_world, params)
     _worlds[state.world_id] = state
     return {"world_id": state.world_id, "generated": True}
@@ -111,7 +111,7 @@ async def advance_era_endpoint(world_id: str):
     state = _worlds.get(world_id)
     if not state:
         raise HTTPException(404, "World not found")
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     state = await loop.run_in_executor(None, advance_world_era, state)
     _worlds[world_id] = state
     return {"era": state.current_era, "events": [asdict(e) for e in state.history[-10:]]}
@@ -173,7 +173,7 @@ async def export_png(world_id: str, style: str = "topo"):
     state = _worlds.get(world_id)
     if not state:
         raise HTTPException(404, "World not found")
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     img_bytes = await loop.run_in_executor(None, _render_png, state, style)
     return StreamingResponse(io.BytesIO(img_bytes), media_type="image/png",
                              headers={"Content-Disposition": "attachment; filename=map.png"})
@@ -184,7 +184,7 @@ async def export_svg(world_id: str):
     state = _worlds.get(world_id)
     if not state:
         raise HTTPException(404, "World not found")
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     svg_str = await loop.run_in_executor(None, _render_svg, state)
     return StreamingResponse(io.StringIO(svg_str), media_type="image/svg+xml",
                              headers={"Content-Disposition": "attachment; filename=map.svg"})
