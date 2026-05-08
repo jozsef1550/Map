@@ -76,17 +76,17 @@ def generate_kingdoms(
         kingdoms.append(Kingdom(
             kingdom_id=kid,
             name=name,
-            capital_x=cc,
-            capital_y=cr,
+            capital_x=int(cc),
+            capital_y=int(cr),
             color=color,
             power=1.0,
         ))
         capital_name = toponymy_engine.city_name(kid, is_capital=True)
         cities.append(CityNode(
-            x=cc, y=cr,
+            x=int(cc), y=int(cr),
             name=capital_name,
             kingdom_id=kid,
-            population=rng.integers(5000, 50000),
+            population=int(rng.integers(5000, 50000)),
             is_capital=True,
         ))
 

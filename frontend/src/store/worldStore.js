@@ -9,15 +9,15 @@ const API = '/api'
 
 const defaultParams = {
   seed: 42,
-  width: 256,
-  height: 256,
-  num_plates: 12,
+  width: 128,
+  height: 128,
+  num_plates: 8,
   tectonic_speed: 1.0,
   rainfall: 1.0,
   mana_level: 0.5,
   mana_threshold: 0.75,
   season: 0.0,
-  erosion_iterations: 60000,
+  erosion_iterations: 10000,
 }
 
 export const useWorldStore = create((set, get) => ({

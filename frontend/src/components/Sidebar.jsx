@@ -18,10 +18,16 @@ const STYLES = [
   { id: 'jrpg',      label: '🎮 8-bit JRPG' },
 ]
 
-function Slider({ label, paramKey, min, max, step = 0.01, format }) {
+function Slider({ label, paramKey, min, max, step = 0.01, format, syncKey }) {
   const value  = useWorldStore(s => s.params[paramKey])
   const setParam = useWorldStore(s => s.setParam)
   const display = format ? format(value) : value.toFixed(2)
+
+  const handleChange = (e) => {
+    const v = parseFloat(e.target.value)
+    setParam(paramKey, v)
+    if (syncKey) setParam(syncKey, v)
+  }
 
   return (
     <div className="slider-row">
@@ -29,7 +35,7 @@ function Slider({ label, paramKey, min, max, step = 0.01, format }) {
       <input
         type="range" min={min} max={max} step={step}
         value={value}
-        onChange={e => setParam(paramKey, parseFloat(e.target.value))}
+        onChange={handleChange}
         className="flex-1"
       />
       <span className="text-xs text-amber-400 w-10 text-right">{display}</span>
@@ -95,7 +101,7 @@ export default function Sidebar() {
       <div className="panel">
         <h2 className="text-xs font-semibold text-gray-400 uppercase mb-2">World Parameters</h2>
         <Slider label="Seed"           paramKey="seed"            min={0}     max={99999} step={1} format={v=>Math.round(v)} />
-        <Slider label="World Size"     paramKey="width"           min={128}   max={512}   step={128} format={v=>`${v}²`} />
+        <Slider label="World Size"     paramKey="width"           min={64}    max={512}   step={64} format={v=>`${v}²`} syncKey="height" />
         <Slider label="Tectonic Plates" paramKey="num_plates"     min={4}     max={24}    step={1} format={v=>Math.round(v)} />
         <Slider label="Tectonic Speed" paramKey="tectonic_speed"  min={0.1}   max={3.0}   step={0.1} />
         <Slider label="Rainfall"       paramKey="rainfall"        min={0.1}   max={3.0}   step={0.1} />
